@@ -16,24 +16,19 @@ def create_stack_list(file_f: str) -> list[list]:
 
 
 def fill_stack_list(file_f: str, list_of_stacks_f: list[list]) -> list[list]:
-    """Reads elements from the text file and transfers it to the list"""
+    """Reads elements from the text file and transfers it to the list
+    -> [["[A]", "[B]"], [["[A]", "[B]"]]"""
     with open(f"{file_f}", "r") as input_data:
         for line in input_data:
             if line[1] == "1":
                 break
-            start = 0
-            end = 3
-            idx = 0
 
-            while end <= len(line):
+            idx = 0
+            for start in range(0, len(line), 4):
+                end = start + 3
                 element = line[start:end]
-                if end == len(line) and element and element != "   ":
+                if element != "   ":
                     list_of_stacks_f[idx].append(element)
-                    break
-                if element and element != "   ":
-                    list_of_stacks_f[idx].append(element)
-                end += 4
-                start += 4
                 idx += 1
 
     for idx, sub_list in enumerate(list_of_stacks_f):
